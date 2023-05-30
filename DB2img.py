@@ -2,6 +2,7 @@ import numpy, sys
 import mhd_utils_3d
 import bgr2DB
 import matplotlib.pyplot as plt
+import os
 
 def save_mhd(moa_id, file_path):
         conn = bgr2DB.dbconnect()
@@ -45,6 +46,8 @@ def save_mhd(moa_id, file_path):
         meta_dict['ElementType'] = 'MET_SHORT'
         meta_dict['ElementDataFile'] = 'Image'
         
+        os.mkdir("{}/{}".format(file_path, str(moa_id)))
+        
         for check_time in time_array:
             data = numpy.zeros([z_count, y_count, x_count], dtype=numpy.short)
 
@@ -74,8 +77,8 @@ def save_mhd(moa_id, file_path):
             
             file_name = str(check_time[0]).replace(":", "_")
             meta_dict['ElementDataFile'] = file_name + ".raw"
-            mhd_utils_3d.write_meta_header('C:/Users/user/Downloads/vtk-data-master/1/' + file_name + '.mhd', meta_dict)
-            mhd_utils_3d.dump_raw_data('C:/Users/user/Downloads/vtk-data-master/1/' + file_name + '.raw', data)
+            mhd_utils_3d.write_meta_header("{}/{}/{}.mhd".format(file_path, moa_id, file_name), meta_dict)
+            mhd_utils_3d.dump_raw_data("{}/{}/{}.raw".format(file_path, moa_id, file_name), data)
 
            
 class UnknownBinaryFormatError(Exception):
@@ -105,7 +108,7 @@ if __name__ == "__main__":
         # plt.imshow(image_array[10,:,:])
         # plt.show()
 
-        save_mhd(1, "")
+        save_mhd(3, "L:/mhd")
 
         # bgr2image(args.input, args.output, args.verbose)
     except (FileNotFoundError, UnknownBinaryFormatError) as e:
