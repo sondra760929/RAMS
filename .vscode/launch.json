@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: 현재 파일",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": ["--input", "F:\\project\\2. 시뮬레이터\\4. ADD\\화생방\\2023\\01.ADD DATA\\230310_NBC-RAMS\\case_building\\056T_moa\\056T_moa1400\\056T_moa1400_210809_155755.bgr"]
+    }
+  ]
+}
